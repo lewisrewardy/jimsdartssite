@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import TrustBar from '../components/TrustBar'
+import Partners from '../components/Partners'
 import ShirtCarousel from '../components/ShirtCarousel'
 import LukeQuote from '../components/LukeQuote'
 import HowItWorks from '../components/HowItWorks'
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <TrustBar />
+      <Partners />
       <ShirtCarousel />
       <LukeQuote />
       <HowItWorks />

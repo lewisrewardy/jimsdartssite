@@ -8,7 +8,7 @@ export default function Navbar() {
     { label: 'Shirts', to: '/shirts' },
     { label: 'Teams', to: '/shirts?filter=team' },
     { label: 'Patches', to: '/shirts' },
-    { label: 'Partners', to: '/why-smarter' },
+    { label: 'Partners', to: '/#partners' },
     { label: 'Why Smarter?', to: '/why-smarter' },
   ]
 
