@@ -14,7 +14,10 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "WebFetch(domain:smarterdartshirts.co.uk)"
+      "WebFetch(domain:smarterdartshirts.co.uk)",
+      "Bash(curl -L \"https://smarterdartshirts.co.uk/wp-content/uploads/2026/03/Our-Vision-1.jpeg\" -o \"C:\\\\Users\\\\lewis\\\\Pictures\\\\Our-Vision-1.jpeg\" --silent)",
+      "Bash(curl -L \"https://smarterdartshirts.co.uk/wp-content/uploads/2026/03/Our-Vision-2.jpeg\" -o \"C:\\\\Users\\\\lewis\\\\Pictures\\\\Our-Vision-2.jpeg\" --silent)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\lewis\\\\Pictures\\\\crop.ps1\")"
     ]
   }
 }
