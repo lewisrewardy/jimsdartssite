@@ -29,7 +29,7 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen px-6 md:px-16 py-14" style={{ backgroundColor: '#0d0d0d' }}>
+      <main className="min-h-screen px-4 sm:px-6 lg:px-16 py-10 md:py-14" style={{ backgroundColor: '#0d0d0d' }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
             {/* Form */}

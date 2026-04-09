@@ -16,7 +16,7 @@ export default function WhySmarter() {
       <Navbar />
       <main style={{ backgroundColor: '#0d0d0d' }}>
         {/* Founder section */}
-        <section className="px-6 md:px-16 py-20" style={{ borderBottom: '0.5px solid #222222' }}>
+        <section className="px-4 sm:px-6 lg:px-16 py-12 md:py-20" style={{ borderBottom: '0.5px solid #222222' }}>
           <div className="max-w-3xl mx-auto">
             <p
               className="text-xs uppercase font-semibold mb-4"
@@ -55,7 +55,7 @@ export default function WhySmarter() {
         <LukeQuote />
 
         {/* Vision */}
-        <section className="px-6 md:px-16 py-20" style={{ borderBottom: '0.5px solid #222222' }}>
+        <section className="px-4 sm:px-6 lg:px-16 py-12 md:py-20" style={{ borderBottom: '0.5px solid #222222' }}>
           <div className="max-w-3xl mx-auto text-center">
             <p
               className="text-xs uppercase font-semibold mb-4"
@@ -75,7 +75,7 @@ export default function WhySmarter() {
         </section>
 
         {/* Built for every level */}
-        <section className="px-6 md:px-16 py-20">
+        <section className="px-4 sm:px-6 lg:px-16 py-12 md:py-20">
           <div className="max-w-7xl mx-auto">
             <p
               className="text-xs uppercase font-semibold mb-8 text-center"
