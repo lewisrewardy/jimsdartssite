@@ -12,48 +12,55 @@ const tabs = [
 export default function ShirtCarousel() {
   const [activeTab, setActiveTab] = useState('all')
   const [currentPage, setCurrentPage] = useState(0)
-  const trackRef = useRef(null)
   const wrapperRef = useRef(null)
-  const [visibleCount, setVisibleCount] = useState(3)
+  const [visibleCount, setVisibleCount] = useState(1)
   const [cardWidth, setCardWidth] = useState(0)
 
   const filtered = shirts.filter((s) => activeTab === 'all' || s.tag === activeTab)
   const pageCount = Math.max(1, Math.ceil(filtered.length / visibleCount))
   const clampedPage = Math.min(currentPage, pageCount - 1)
 
-  // Measure visible count from wrapper width
+  const gap = 16
+
   const measure = useCallback(() => {
     if (!wrapperRef.current) return
     const w = wrapperRef.current.offsetWidth
-    const gap = 16
     let count = 1
-    if (w >= 900) count = 3
-    else if (w >= 600) count = 2
+    if (w >= 700) count = 3
+    else if (w >= 440) count = 2
     const cw = (w - gap * (count - 1)) / count
     setVisibleCount(count)
-    setCardWidth(cw)
+    setCardWidth(Math.floor(cw))
   }, [])
 
   useEffect(() => {
-    measure()
+    // Measure after layout
+    const raf = requestAnimationFrame(measure)
     const observer = new ResizeObserver(measure)
     if (wrapperRef.current) observer.observe(wrapperRef.current)
-    return () => observer.disconnect()
+    return () => {
+      cancelAnimationFrame(raf)
+      observer.disconnect()
+    }
   }, [measure])
 
-  // Reset to page 0 on tab change
   useEffect(() => {
     setCurrentPage(0)
   }, [activeTab])
 
-  const gap = 16
-  const offset = clampedPage * visibleCount * (cardWidth + gap)
+  // Clamp currentPage when visibleCount changes
+  useEffect(() => {
+    setCurrentPage((p) => Math.min(p, Math.max(0, Math.ceil(filtered.length / visibleCount) - 1)))
+  }, [visibleCount, filtered.length])
+
+  const effectiveCardWidth = cardWidth || 280
+  const offset = clampedPage * visibleCount * (effectiveCardWidth + gap)
 
   return (
-    <section className="py-16 px-6 md:px-16" style={{ backgroundColor: '#0d0d0d' }}>
+    <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-16" style={{ backgroundColor: '#0d0d0d' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <p
             className="text-xs uppercase font-semibold mb-2"
             style={{ color: '#888888', letterSpacing: '0.2em' }}
@@ -65,15 +72,22 @@ export default function ShirtCarousel() {
           </h2>
         </div>
 
-        {/* Filter tabs */}
-        <div className="flex gap-0 mb-8" style={{ borderBottom: '1px solid #222222' }}>
+        {/* Filter tabs — horizontally scrollable on mobile */}
+        <div
+          className="flex mb-6 md:mb-8 overflow-x-auto"
+          style={{
+            borderBottom: '1px solid #222222',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
           {tabs.map((tab) => {
             const isActive = activeTab === tab.value
             return (
               <button
                 key={tab.value}
                 onClick={() => setActiveTab(tab.value)}
-                className="px-4 py-3 text-xs uppercase font-semibold transition-colors duration-150 outline-none"
+                className="flex-shrink-0 px-4 py-3 text-xs uppercase font-semibold transition-colors duration-150 outline-none whitespace-nowrap"
                 style={{
                   color: isActive ? '#ffffff' : '#555555',
                   borderBottom: isActive ? '2px solid #c8102e' : '2px solid transparent',
@@ -88,13 +102,13 @@ export default function ShirtCarousel() {
           })}
         </div>
 
-        {/* Carousel */}
-        <div className="relative flex items-center gap-3">
-          {/* Prev button */}
+        {/* Carousel row */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Prev */}
           <button
             onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
             disabled={clampedPage === 0}
-            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-150 disabled:opacity-30"
+            className="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-colors duration-150 disabled:opacity-30"
             style={{ border: '1px solid #333', color: '#fff', background: 'transparent' }}
             onMouseEnter={(e) => {
               if (clampedPage > 0) {
@@ -113,26 +127,22 @@ export default function ShirtCarousel() {
           {/* Track wrapper */}
           <div ref={wrapperRef} className="flex-1 overflow-hidden">
             <div
-              ref={trackRef}
               className="flex transition-transform duration-300 ease-in-out"
               style={{ gap: `${gap}px`, transform: `translateX(-${offset}px)` }}
             >
               {filtered.map((shirt) => (
-                <div
-                  key={shirt.id}
-                  style={{ width: cardWidth || 280, flexShrink: 0 }}
-                >
+                <div key={shirt.id} style={{ width: effectiveCardWidth, flexShrink: 0 }}>
                   <ShirtCard shirt={shirt} />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Next button */}
+          {/* Next */}
           <button
             onClick={() => setCurrentPage((p) => Math.min(pageCount - 1, p + 1))}
             disabled={clampedPage >= pageCount - 1}
-            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-150 disabled:opacity-30"
+            className="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-colors duration-150 disabled:opacity-30"
             style={{ border: '1px solid #333', color: '#fff', background: 'transparent' }}
             onMouseEnter={(e) => {
               if (clampedPage < pageCount - 1) {
@@ -150,7 +160,7 @@ export default function ShirtCarousel() {
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex justify-center gap-2 mt-5">
           {Array.from({ length: pageCount }).map((_, i) => (
             <button
               key={i}

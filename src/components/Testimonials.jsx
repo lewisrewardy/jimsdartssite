@@ -2,22 +2,25 @@ import { testimonials } from '../data/testimonials'
 
 export default function Testimonials() {
   return (
-    <section className="py-16 px-6 md:px-16" style={{ backgroundColor: '#0d0d0d', borderTop: '0.5px solid #222222' }}>
+    <section
+      className="py-12 md:py-16 px-4 sm:px-6 lg:px-16"
+      style={{ backgroundColor: '#0d0d0d', borderTop: '0.5px solid #222222' }}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section label */}
         <p
-          className="text-xs uppercase font-semibold mb-10 text-center"
+          className="text-xs uppercase font-semibold mb-8 md:mb-10 text-center"
           style={{ color: '#888888', letterSpacing: '0.2em' }}
         >
           Player feedback
         </p>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="p-6 rounded-lg flex flex-col gap-3"
+              className="p-5 md:p-6 rounded-lg flex flex-col gap-3"
               style={{ backgroundColor: '#161616', border: '1px solid #222222' }}
             >
               {/* Stars */}
@@ -30,7 +33,7 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <p className="text-sm italic leading-relaxed text-white" style={{ color: '#dddddd' }}>
+              <p className="text-sm italic leading-relaxed" style={{ color: '#dddddd' }}>
                 "{t.quote}"
               </p>
 

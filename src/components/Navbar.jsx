@@ -17,23 +17,23 @@ export default function Navbar() {
       className="sticky top-0 z-50 w-full"
       style={{ backgroundColor: '#111111', borderBottom: '0.5px solid #2a2a2a' }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-12">
         {/* Logo */}
         <Link
           to="/"
-          className="text-white font-semibold tracking-widest uppercase text-xs"
-          style={{ letterSpacing: '0.2em' }}
+          className="text-white font-semibold uppercase flex-shrink-0"
+          style={{ letterSpacing: '0.18em', fontSize: 11 }}
         >
           Smarter Dart Shirts
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-7">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-7">
           {navLinks.map((link) => (
             <NavLink
               key={link.label}
               to={link.to}
-              className="text-xs uppercase tracking-widest transition-colors duration-150"
+              className="text-xs uppercase tracking-widest transition-colors duration-150 whitespace-nowrap"
               style={({ isActive }) => ({
                 color: isActive ? '#ffffff' : '#888888',
                 letterSpacing: '0.12em',
@@ -45,24 +45,33 @@ export default function Navbar() {
         </div>
 
         {/* CTA + hamburger */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link
             to="/shirts"
-            className="hidden md:block text-xs uppercase font-semibold px-4 py-2 rounded transition-colors duration-150"
+            className="hidden lg:block text-xs uppercase font-semibold px-4 py-2 rounded transition-colors duration-150 whitespace-nowrap"
             style={{
               backgroundColor: '#c8102e',
               color: '#ffffff',
               letterSpacing: '0.12em',
             }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = '#a50d25')}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = '#c8102e')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#a50d25')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#c8102e')}
           >
             Create Your Shirt
           </Link>
 
+          {/* Mobile CTA (small, no label) */}
+          <Link
+            to="/shirts"
+            className="lg:hidden text-xs uppercase font-semibold px-3 py-1.5 rounded"
+            style={{ backgroundColor: '#c8102e', color: '#ffffff', letterSpacing: '0.1em', fontSize: 10 }}
+          >
+            Order
+          </Link>
+
           {/* Hamburger */}
           <button
-            className="md:hidden flex flex-col justify-center items-center gap-1 w-8 h-8"
+            className="lg:hidden flex flex-col justify-center items-center gap-1 w-8 h-8"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -85,16 +94,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div
-          className="md:hidden px-6 pb-4 pt-2 flex flex-col gap-3"
-          style={{ borderTop: '0.5px solid #2a2a2a' }}
+          className="lg:hidden px-4 sm:px-6 pb-4 pt-2 flex flex-col gap-1"
+          style={{ borderTop: '0.5px solid #2a2a2a', backgroundColor: '#111111' }}
         >
           {navLinks.map((link) => (
             <NavLink
               key={link.label}
               to={link.to}
               onClick={() => setMenuOpen(false)}
-              className="text-xs uppercase tracking-widest py-2"
-              style={{ color: '#888888', letterSpacing: '0.12em' }}
+              className="text-xs uppercase py-2.5 transition-colors duration-150"
+              style={{ color: '#888888', letterSpacing: '0.12em', borderBottom: '0.5px solid #1a1a1a' }}
             >
               {link.label}
             </NavLink>
@@ -102,7 +111,7 @@ export default function Navbar() {
           <Link
             to="/shirts"
             onClick={() => setMenuOpen(false)}
-            className="text-xs uppercase font-semibold px-4 py-2 rounded text-center mt-2"
+            className="text-xs uppercase font-semibold px-4 py-3 rounded text-center mt-3"
             style={{ backgroundColor: '#c8102e', color: '#ffffff', letterSpacing: '0.12em' }}
           >
             Create Your Shirt

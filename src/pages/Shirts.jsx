@@ -22,7 +22,7 @@ export default function Shirts() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen px-6 md:px-16 py-14" style={{ backgroundColor: '#0d0d0d' }}>
+      <main className="min-h-screen px-4 sm:px-6 lg:px-16 py-10 md:py-14" style={{ backgroundColor: '#0d0d0d' }}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-10">
@@ -41,15 +41,18 @@ export default function Shirts() {
             </p>
           </div>
 
-          {/* Filter tabs */}
-          <div className="flex gap-0 mb-10" style={{ borderBottom: '1px solid #222222' }}>
+          {/* Filter tabs — scrollable on mobile */}
+          <div
+            className="flex mb-8 overflow-x-auto"
+            style={{ borderBottom: '1px solid #222222', scrollbarWidth: 'none' }}
+          >
             {tabs.map((tab) => {
               const isActive = activeTab === tab.value
               return (
                 <button
                   key={tab.value}
                   onClick={() => setActiveTab(tab.value)}
-                  className="px-4 py-3 text-xs uppercase font-semibold transition-colors duration-150 outline-none"
+                  className="flex-shrink-0 whitespace-nowrap px-4 py-3 text-xs uppercase font-semibold transition-colors duration-150 outline-none"
                   style={{
                     color: isActive ? '#ffffff' : '#555555',
                     borderBottom: isActive ? '2px solid #c8102e' : '2px solid transparent',

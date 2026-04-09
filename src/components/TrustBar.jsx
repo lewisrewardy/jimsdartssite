@@ -8,10 +8,14 @@ const trustItems = [
 export default function TrustBar() {
   return (
     <div
-      className="w-full px-6 py-4"
-      style={{ backgroundColor: '#111111', borderTop: '0.5px solid #222222', borderBottom: '0.5px solid #222222' }}
+      className="w-full px-4 sm:px-6 py-3 md:py-4"
+      style={{
+        backgroundColor: '#111111',
+        borderTop: '0.5px solid #222222',
+        borderBottom: '0.5px solid #222222',
+      }}
     >
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-3 md:gap-0 md:flex md:items-center md:justify-between">
         {trustItems.map((item) => (
           <div key={item} className="flex items-center gap-2">
             <span
@@ -19,8 +23,8 @@ export default function TrustBar() {
               style={{ backgroundColor: '#c8102e' }}
             />
             <span
-              className="text-xs uppercase font-medium"
-              style={{ color: '#cccccc', letterSpacing: '0.12em' }}
+              className="text-xs uppercase font-medium leading-tight"
+              style={{ color: '#cccccc', letterSpacing: '0.1em' }}
             >
               {item}
             </span>
